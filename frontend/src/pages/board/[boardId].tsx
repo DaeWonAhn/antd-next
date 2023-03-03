@@ -1,14 +1,12 @@
 import React from "react";
 
 import BoardDetailPanel from "@/components/pages/board/BoardDetailPanel";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 
 const DetailPage = () => {
-  const boardId = router.query.id;
+    const router = useRouter();
 
-  // const { boardId } = router.query;
-
-  return <BoardDetailPanel boardId={boardId} />;
+    return <BoardDetailPanel boardId={router.query} />;
 };
 
 export default DetailPage;

@@ -1,4 +1,4 @@
-export interface DataType {
+export class CreateUserDto {
     email: string;
     age: number;
 }

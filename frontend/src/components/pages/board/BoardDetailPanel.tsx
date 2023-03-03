@@ -1,38 +1,78 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 import { Descriptions } from "antd";
 
 import { DataType } from "@/types/index";
+import axios from "axios";
 
-const BaordDetailPanel = (probs : any) => {
-  const router = useRouter();
-  const { boardId } = router.query;
+interface IFoodData {
+    name: string;
+    price: number;
+    content: string;
+}
 
-  const [data, setData] = useState<DataType>();
-  useEffect(() => {
-    const fetchBoard = async () => {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/todos/${boardId}`
-      );
-      const json = await res.json();
-      setData(json);
-    };
-    fetchBoard();
-  }, [boardId]);
+const BaordDetailPanel = (probs: any) => {
+    const { boardId } = probs;
+    console.log("boardId: ", boardId);
 
-  console.log(data);
-  // Descriptions
+    const [data, setData] = useState<DataType>();
+    useEffect(() => {
+        /*
 
-  return (
-    <>
-      <Descriptions title="User Info" layout="vertical">
-        <Descriptions.Item label="userId">{data?.userId}</Descriptions.Item>
-        <Descriptions.Item label="Title">{data?.title}</Descriptions.Item>
-        <Descriptions.Item label="Id">{data?.id}</Descriptions.Item>
-      </Descriptions>
-    </>
-  );
+        fetch 사용 
+
+        const fetchBoard = async () => {
+            const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${boardId}`);
+            const json = await res.json();
+            setData(json);
+        };
+        fetchBoard();
+        */
+
+        const nextTest = async () => {
+            try {
+                const res = await axios.get("/api/users");
+                const data = res.data;
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        /*
+       post;
+       const postData = {
+           email: "sdsd2112@naver.com",
+           age: 51,
+        };
+        
+        
+        const nextTest = async () => {
+            try {
+                const res = await axios.post("/api/users", postData);
+                const data = res.data;
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        */
+        nextTest();
+    }, [boardId]);
+
+    // Descriptions
+
+    return (
+        <>
+            {/* 
+            <Descriptions title="User Info" layout="vertical">
+                <Descriptions.Item label="userId">{data?.age}</Descriptions.Item>
+                <Descriptions.Item label="Title">{data?.em}</Descriptions.Item>
+                <Descriptions.Item label="Id">{data?.id}</Descriptions.Item>
+            </Descriptions>
+            */}
+        </>
+    );
 };
 
 export default BaordDetailPanel;
