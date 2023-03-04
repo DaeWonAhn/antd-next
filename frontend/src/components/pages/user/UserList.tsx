@@ -14,6 +14,9 @@ const UserList = () => {
             dataIndex: "email",
             key: "email",
             width: 0.5,
+            render: (email, record) => (
+                <a onClick={() => router.push(`${router.pathname}/${record.userId}`)}>{email}</a>
+            ),
         },
         {
             title: "age",
@@ -33,7 +36,7 @@ const UserList = () => {
 
     const handleRowClick = (record: any) => {
         // record 값을 이용한 로직 처리
-        console.log(record.userId);
+        console.log(record);
         userDelete(record.userId);
     };
 
@@ -61,8 +64,7 @@ const UserList = () => {
                     </Button>
                 </Col>
             </Row>
-            <Row justify="end"></Row>
-            {user.length && <Table columns={columns} dataSource={user} />}
+            {user.length && <Table columns={columns} dataSource={user} rowKey="name" />}
         </>
     );
 };

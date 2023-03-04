@@ -24,29 +24,13 @@ const Nav = () => {
     };
     return (
         <>
-            <Layout className="layout">
-                <Menu
-                    onClick={onMenu}
-                    selectedKeys={[current]}
-                    items={menuItems}
-                    mode="horizontal"
-                    theme="dark"
-                />
-                {/* 
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={new Array(15).fill(null).map((_, index) => {
-            const key = index + 1;
-            return {
-              key,
-              label: `nav ${key}`,
-            };
-          })}
-        />
-            */}
-            </Layout>
+            <Menu
+                onClick={onMenu}
+                selectedKeys={[current]}
+                items={menuItems}
+                mode="horizontal"
+                theme="dark"
+            />
         </>
     );
 };
