@@ -8,13 +8,16 @@ import { UsersRepository } from './users.repository';
 import { Model } from 'mongoose';
 
 import { InjectModel } from '@nestjs/mongoose';
+import { CreateUserDto } from './dto/create-user.dto';
+
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly usersRepository: UsersRepository,
 
-    @InjectModel(User.name) private readonly model: Model<UserDocument>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
   async getUserById(userId: string): Promise<User> {
@@ -25,11 +28,33 @@ export class UsersService {
     return this.usersRepository.find({ order: { price: 'desc' } });
   }
 
-  async createUser(email: string, age: number): Promise<User> {
+  async createUser(
+    email: string,
+    age: number,
+    password: string,
+  ): Promise<User> {
     return this.usersRepository.create({
       userId: uuidv4(),
       email,
       age,
+      password,
+      favoriteFoods: [],
+    });
+  }
+
+  async save(
+    createUserDto: User,
+    email: string,
+    age: number,
+    password: string,
+  ): Promise<User> {
+    await this.transformPassword(createUserDto);
+    console.log('createUserDto: ', createUserDto);
+    return this.usersRepository.create({
+      userId: uuidv4(),
+      email,
+      age,
+      password,
       favoriteFoods: [],
     });
   }
@@ -38,7 +63,18 @@ export class UsersService {
     return this.usersRepository.findOneAndUpdate({ userId }, userUpdates);
   }
 
-  async delete(userId: string): Promise<User> {
-    return await this.model.findByIdAndDelete(userId).exec();
+  async deleteUser(id: string): Promise<User> {
+    return await this.userModel.findByIdAndDelete(id).exec();
+  }
+
+  async deleteUserFromUserId(userId: string) {
+    return await this.userModel.findOneAndDelete({
+      userId,
+    });
+  }
+
+  async transformPassword(user: CreateUserDto): Promise<void> {
+    user.password = await bcrypt.hash(user.password, 10);
+    return Promise.resolve();
   }
 }

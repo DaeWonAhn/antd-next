@@ -30,7 +30,7 @@ export class UsersRepository {
     });
   }
 
-  async findByIdAndDelete(id: string): Promise<User> {
-    return this.userModel.findByIdAndDelete(id);
+  async findByIdAndDelete(userId: string): Promise<void> {
+    return this.userModel.findByIdAndDelete(userId);
   }
 }

@@ -3,22 +3,22 @@ import BoardList from "@/components/pages/board/BoardList";
 import axios from "axios";
 
 const index = () => {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-        const getBoard = async () => {
-            try {
-                const res = await axios.get("/api/boards");
-                const data = res.data;
-                console.log("data: ", data);
-                setData(data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getBoard();
+  useEffect(() => {
+    const getBoard = async () => {
+      try {
+        const res = await axios.get("/api/boards");
+        const data = res.data;
+        console.log("data: ", data);
+        setData(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getBoard();
 
-        /*
+    /*
         const postData = {
             email: "sdsd2112@naver.com",
             age: 51,
@@ -37,13 +37,13 @@ const index = () => {
         
         nextTest();
         */
-    }, []);
+  }, []);
 
-    return (
-        <div>
-            <BoardList boards={data} />
-        </div>
-    );
+  return (
+    <div>
+      <BoardList boards={data} />
+    </div>
+  );
 };
 
 export default index;

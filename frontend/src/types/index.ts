@@ -1,5 +1,6 @@
 export interface DataType {
-    email: string;
-    age: number;
-    userId: number;
+  email: string;
+  age: number;
+  userId: number;
+  id: number;
 }

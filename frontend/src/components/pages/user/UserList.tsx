@@ -1,72 +1,102 @@
 import React, { useEffect, useState } from "react";
+import router from "next/router";
 import axios from "axios";
 import type { ColumnsType } from "antd/es/table";
-import { Table, Tooltip, Row, Col, Button, Divider } from "antd";
-
-import { DataType } from "../../../types/index";
-
-import router from "next/router";
+import { Table, Row, Col, Button, Modal, Alert, message } from "antd";
+import { DataType } from "@/types/index";
 
 const UserList = () => {
-    const columns: ColumnsType<DataType> = [
-        {
-            title: "email",
-            dataIndex: "email",
-            key: "email",
-            width: 0.5,
-            render: (email, record) => (
-                <a onClick={() => router.push(`${router.pathname}/${record.userId}`)}>{email}</a>
-            ),
-        },
-        {
-            title: "age",
-            dataIndex: "age",
-            key: "age",
-            width: 150,
-        },
-        {
-            title: "Action",
-            dataIndex: "",
-            key: "x",
-            width: 150,
+  const [user, setUserList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-            render: (text, record) => <a onClick={() => handleRowClick(record)}>Delete</a>,
-        },
-    ];
+  const [error, setError] = useState<any>(null);
 
-    const handleRowClick = (record: any) => {
-        // record 값을 이용한 로직 처리
-        console.log(record);
-        userDelete(record.userId);
-    };
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "email",
+      dataIndex: "email",
+      key: "email",
+      width: 0.5,
+      render: (email, record) => (
+        <a onClick={() => router.push(`${router.pathname}/${record.userId}`)}>{email}</a>
+      ),
+    },
+    {
+      title: "age",
+      dataIndex: "age",
+      key: "age",
+      width: 150,
+    },
+    {
+      title: "Action",
+      dataIndex: "",
+      key: "x",
+      width: 150,
 
-    const [user, setUserList] = useState([]);
-    const userList = async () => {
-        const res = await axios.get("/api/users");
-        const data = res.data;
-        setUserList(data);
-    };
-    const userDelete = async (userId: any) => {
-        const res = await axios.delete(`/api/users/${userId}`);
-        console.log("delete success");
-    };
-    useEffect(() => {
-        userList();
-        console.log("userList", user);
-    }, []);
+      render: (text, record) => <a onClick={() => handleRowClick(record)}>Delete</a>,
+    },
+  ];
 
-    return (
-        <>
-            <Row justify="end">
-                <Col span={4}>
-                    <Button className="btn-default" onClick={() => router.push(`${router.pathname}/new`)}>
-                        추가
-                    </Button>
-                </Col>
-            </Row>
-            {user.length && <Table columns={columns} dataSource={user} rowKey="name" />}
-        </>
-    );
+  const handleRowClick = (record: any) => {
+    Modal.confirm({
+      title: "삭제",
+      content: "선택한 항목을 삭제하시겠습니까?",
+      onOk: () => {
+        // deleteUser(record._id);
+        deleteUser(record.userId);
+      },
+    });
+  };
+
+  const fetchUserList = async () => {
+    const res = await axios.get("/api/users");
+    const data = res.data;
+    setUserList(data);
+  };
+
+  // 삭제
+  const deleteUser = async (userId: string) => {
+    setLoading(true);
+
+    // const res = await axios.delete(`/api/users/${userId}`);
+
+    try {
+      const res = await axios.delete(`/api/users/user-id/${userId}`);
+      fetchUserList();
+      console.log("delete success");
+    } catch (e: any) {
+      console.error(`${e}`);
+      message.error(`${e}`);
+      setError(e);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchUserList();
+    console.log("userList", user);
+  }, []);
+
+  return (
+    <>
+      {error && <Alert type="error" showIcon message={`${error}`} />}
+
+      <Row justify="end">
+        <Col span={4}>
+          <div style={{ display: "flex" }}>
+            <Button
+              style={{ marginLeft: "auto" }}
+              className="btn-default"
+              onClick={() => router.push(`${router.pathname}/new`)}
+            >
+              추가
+            </Button>
+          </div>
+        </Col>
+      </Row>
+      <Table columns={columns} dataSource={user} rowKey="name" loading={loading} />
+    </>
+  );
 };
 
 export default UserList;

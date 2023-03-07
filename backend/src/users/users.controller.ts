@@ -15,7 +15,7 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get(':userId')
   async getUser(@Param('userId') userId: string): Promise<User> {
@@ -30,7 +30,11 @@ export class UsersController {
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(createUserDto.email, createUserDto.age);
+    return this.usersService.createUser(
+      createUserDto.email,
+      createUserDto.age,
+      createUserDto.password,
+    );
   }
 
   @Patch(':userId')
@@ -41,10 +45,15 @@ export class UsersController {
     return this.usersService.updateUser(userId, updateUserDto);
   }
 
-  @Delete(':userId')
-  async delete(@Param('userId') userId: string) {
-    console.log('userId: ', userId);
+  // DELETE users/:id
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return await this.usersService.deleteUser(id);
+  }
 
-    // return await this.usersService.delete(userId);
+  // DELETE users/user-id/:userId
+  @Delete('/user-id/:userId')
+  async deleteFromUserId(@Param('userId') userId: string) {
+    return await this.usersService.deleteUserFromUserId(userId);
   }
 }
