@@ -28,13 +28,20 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
+  /*
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.createUser(
       createUserDto.email,
       createUserDto.age,
       createUserDto.password,
-    );
+      );
+    }
+  */
+
+  @Post()
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.save(createUserDto);
   }
 
   @Patch(':userId')

@@ -21,7 +21,12 @@ export class UsersService {
   ) {}
 
   async getUserById(userId: string): Promise<User> {
+    console.log('userId: ', userId);
     return this.usersRepository.findOne({ userId });
+  }
+
+  async loginUser(email: string): Promise<User> {
+    return this.usersRepository.findOne({ email });
   }
 
   async getUsers(): Promise<User[]> {
@@ -42,20 +47,15 @@ export class UsersService {
     });
   }
 
-  async save(
-    createUserDto: User,
-    email: string,
-    age: number,
-    password: string,
-  ): Promise<User> {
-    await this.transformPassword(createUserDto);
-    console.log('createUserDto: ', createUserDto);
+  async save(user: CreateUserDto): Promise<User> {
+    // await this.transformPassword(createUserDto);
+    await this.transformPassword(user);
     return this.usersRepository.create({
       userId: uuidv4(),
-      email,
-      age,
-      password,
+      email: user.email,
+      age: user.age,
       favoriteFoods: [],
+      password: user.password,
     });
   }
 

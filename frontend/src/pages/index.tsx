@@ -1,15 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Button, Checkbox, Form, Input, Space, Row, Col } from "antd";
+import dwClient from "@/lib/client";
+
+let userInfo: { email: any; password: any };
 
 const index = () => {
-  const handleFinish = (values: any) => {
-    console.log("Success:", values);
+  const handleFinish = async (values: any) => {
+    userInfo = {
+      email: values.email,
+      password: values.password,
+    };
+
+    await loginUser();
   };
 
   const handleFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  const loginUser = async () => {
+    try {
+      const res = await dwClient.post("auth/login", userInfo);
+
+      if (res.data) {
+        console.log("o");
+        localStorage.setItem("token", res.data.access_token);
+      } else {
+        console.log("x");
+      }
+    } catch (e: any) {
+      console.error(`${e}`);
+    }
+  };
+
+  async function fetchProfile() {
+    try {
+      const myToken = localStorage.getItem("token");
+      console.log("myToken: ", myToken);
+
+      // const decoded = jwt.verify(myToken, "secretKey");
+      // return { user: decoded.username };
+
+      const response = await dwClient.get("/auth/profile");
+      console.log("response: ", response);
+    } catch (e: any) {
+      console.error(`${e}`);
+    }
+  }
+
   return (
     <>
       <div style={{ height: "190px" }}>
@@ -29,8 +68,8 @@ const index = () => {
             autoComplete="off"
           >
             <Form.Item
-              label="Username"
-              name="username"
+              label="email"
+              name="email"
               rules={[{ required: true, message: "Please input your username!" }]}
             >
               <Input />
@@ -55,6 +94,9 @@ const index = () => {
             </Form.Item>
           </Form>
         </Col>
+      </Row>
+      <Row>
+        <Button onClick={fetchProfile}>확인</Button>
       </Row>
     </>
   );

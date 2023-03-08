@@ -91,15 +91,6 @@ const UserNewPanel = () => {
                 <Input style={{ width: "30%" }} placeholder="5678" name="phone3" />
               </Input.Group>
             </Form.Item>
-
-            <Form.Item>
-              <Input.Group compact>
-                <Input style={{ width: "30%" }} placeholder="010" name="prefix" />
-                <Input style={{ width: "40%" }} placeholder="1234" name="middle" />
-                <Input style={{ width: "30%" }} placeholder="5678" name="suffix" />
-              </Input.Group>
-            </Form.Item>
-
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
               <Button type="primary" htmlType="submit">
                 Submit
