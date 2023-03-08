@@ -7,6 +7,7 @@ import {
   Request,
   UseGuards,
   Res,
+  NotFoundException,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
@@ -14,12 +15,15 @@ import { LocalAuthGuard } from './auth/guard/local-auth.guard';
 import { CreateUserDto } from './users/dto/create-user.dto';
 
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
+import { UsersService } from './users/users.service';
+import { User } from './users/schemas/user.schema';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly authService: AuthService,
+    private readonly usersService: UsersService,
   ) {}
 
   @Get()
@@ -46,6 +50,14 @@ export class AppController {
   @Post('/auth/login')
   async login(@Request() req: Request) {
     return this.authService.login((req as any).user);
+  }
+
+  // not guard
+  @Post('/auth/login2')
+  async login2(@Body() dto: CreateUserDto) {
+    const { email, password } = dto;
+
+    return this.usersService.login2(email, password);
   }
 
   /*

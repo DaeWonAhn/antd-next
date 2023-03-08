@@ -12,6 +12,14 @@ export class UsersRepository {
     return this.userModel.findOne(userFilterQuery);
   }
 
+  /*
+  async selectUser(email: string, password: string): Promise<User> {
+    return this.userModel.find({
+      $and: [{ email: email }, { password: password }],
+    });
+  }
+  */
+
   async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
     return this.userModel.find(usersFilterQuery);
   }

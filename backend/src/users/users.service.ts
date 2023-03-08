@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -11,17 +11,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 
 import * as bcrypt from 'bcrypt';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly usersRepository: UsersRepository,
+    private authService: AuthService,
 
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
   async getUserById(userId: string): Promise<User> {
-    console.log('userId: ', userId);
     return this.usersRepository.findOne({ userId });
   }
 
@@ -73,6 +74,19 @@ export class UsersService {
     });
   }
 
+  async login2(email: string, password: string) {
+    const user = await this.usersRepository.findOne({ email });
+
+    // const user = await this.usersRepository.selectUser(email, password);
+
+    if (!user) {
+      throw new NotFoundException('유저가 존재하지 않습니다');
+    }
+
+    return this.authService.login(user);
+  }
+
+  // 암호화
   async transformPassword(user: CreateUserDto): Promise<void> {
     user.password = await bcrypt.hash(user.password, 10);
     return Promise.resolve();

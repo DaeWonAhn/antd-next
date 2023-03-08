@@ -12,7 +12,6 @@ import { jwtConstants } from './constants';
 //  환경변수 값을 불러오기 위해 ConfigService를 사용하였다.
 @Module({
   imports: [
-    UsersModule,
     PassportModule,
     ConfigModule,
     JwtModule.register({

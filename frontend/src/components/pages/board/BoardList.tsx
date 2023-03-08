@@ -7,30 +7,26 @@ import router from "next/router";
 import { DataType } from "../../../types/index";
 
 interface Iprops {
-    boards: any;
+  boards: any;
 }
 
-const fnDetail = () => {
-    alert("a");
-};
-
 function BoardList({ boards }: Iprops) {
-    const columns: ColumnsType<DataType> = [
-        {
-            title: "email",
-            dataIndex: "email",
-            key: "email",
-            width: 0.5,
-        },
-        {
-            title: "age",
-            dataIndex: "age",
-            key: "age",
-            width: 150,
-        },
-    ];
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "email",
+      dataIndex: "email",
+      key: "email",
+      width: 0.5,
+    },
+    {
+      title: "age",
+      dataIndex: "age",
+      key: "age",
+      width: 150,
+    },
+  ];
 
-    /*
+  /*
     fetch 예제
     useEffect(() => {
         fetch("https://jsonplaceholder.typicode.com/todos")
@@ -40,15 +36,15 @@ function BoardList({ boards }: Iprops) {
     
     */
 
-    return (
-        <>
-            <Row justify="end">
-                <Col span={4}></Col>
-            </Row>
-            <Row justify="end"></Row>
-            {boards.length && <Table columns={columns} dataSource={boards} />}
-        </>
-    );
+  return (
+    <>
+      <Row justify="end">
+        <Col span={4}></Col>
+      </Row>
+      <Row justify="end"></Row>
+      {boards.length && <Table columns={columns} dataSource={boards} />}
+    </>
+  );
 }
 
 export default BoardList;

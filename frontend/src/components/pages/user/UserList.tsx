@@ -5,6 +5,29 @@ import type { ColumnsType } from "antd/es/table";
 import { Table, Row, Col, Button, Modal, Alert, message } from "antd";
 import { DataType } from "@/types/index";
 
+const DUMMY = [
+  {
+    id: 1,
+    name: "moon",
+    age: 12,
+  },
+  {
+    id: 2,
+    name: "moon2",
+    age: 12,
+  },
+  {
+    id: 3,
+    name: "moon3",
+    age: 12,
+  },
+  {
+    id: 4,
+    name: "moon4",
+    age: 12,
+  },
+];
+
 const UserList = () => {
   const [user, setUserList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -81,6 +104,12 @@ const UserList = () => {
     <>
       {error && <Alert type="error" showIcon message={`${error}`} />}
 
+      {/* 
+      {DUMMY.map((user, i) => {
+        return <div key={i}>{JSON.stringify(user)}</div>;
+      })}
+      */}
+
       <Row justify="end">
         <Col span={4}>
           <div style={{ display: "flex" }}>
@@ -94,7 +123,26 @@ const UserList = () => {
           </div>
         </Col>
       </Row>
-      <Table columns={columns} dataSource={user} rowKey="name" loading={loading} />
+
+      {/* 
+      <Table
+        columns={columns}
+        dataSource={user}
+        loading={loading}
+        rowKey={(record) => {
+          return `${record._id}_${record.email}`;
+        }}
+      />
+        */}
+
+      <Table
+        dataSource={user}
+        columns={columns}
+        loading={loading}
+        rowKey={(record) => {
+          return record._id;
+        }}
+      ></Table>
     </>
   );
 };
