@@ -94,7 +94,14 @@ const UserList = () => {
           </div>
         </Col>
       </Row>
-      <Table columns={columns} dataSource={user} rowKey="name" loading={loading} />
+      <Table
+        dataSource={user}
+        columns={columns}
+        loading={loading}
+        rowKey={(record) => {
+          return record._id;
+        }}
+      ></Table>
     </>
   );
 };

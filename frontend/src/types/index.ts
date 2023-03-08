@@ -3,4 +3,5 @@ export interface DataType {
   age: number;
   userId: number;
   id: number;
+  _id: string;
 }
