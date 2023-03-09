@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
@@ -8,6 +8,8 @@ import { BoardsModule } from './boards/boards.module';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalAuthGuard } from './auth/guard/local-auth.guard';
+import { UsersController } from './users/users.controller';
+import { jwtMiddleware } from './middleware/jwt.middleware';
 
 @Module({
   imports: [
@@ -20,4 +22,12 @@ import { LocalAuthGuard } from './auth/guard/local-auth.guard';
   controllers: [AppController],
   providers: [AppService, LocalAuthGuard],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer
+      .apply(jwtMiddleware)
+      // .forRoutes('/users')
+      // .exclude({ path: 'users', method: RequestMethod.GET },)
+      .forRoutes(UsersController);
+  }
+}

@@ -4,7 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 
 import Router, { useRouter } from "next/router";
 import router from "next/router";
-import { DataType } from "../../../types/index";
+import { DataType } from "@/types/index";
 
 interface Iprops {
   boards: any;

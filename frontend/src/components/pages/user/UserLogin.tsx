@@ -28,9 +28,8 @@ const UserLogin = () => {
       const res = await axios.post("/api/auth/login", userInfo);
 
       if (res.status === 201) {
-        console.log("o");
-        console.log("res.data.access_token: ", res.data.access_token);
         localStorage.setItem("token", res.data.access_token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         router.push("/");
       }
     } catch (e: any) {
