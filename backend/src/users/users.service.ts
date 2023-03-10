@@ -21,7 +21,6 @@ export class UsersService {
   ) {}
 
   async getUserById(userId: string): Promise<User> {
-    console.log('userId: ', userId);
     return this.usersRepository.findOne({ userId });
   }
 

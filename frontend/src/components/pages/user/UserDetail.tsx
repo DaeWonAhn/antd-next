@@ -5,15 +5,14 @@ import axios from "axios";
 
 import { Descriptions, Button, Input, Form, Alert, Space, message } from "antd";
 import { UserType } from "@/types";
+import router from "next/router";
 
 const UserDetail = (props: any) => {
   const { userId, onConfirm } = props;
 
   const [form] = Form.useForm();
-  const router = useRouter();
 
   const [user, setUser] = useState<UserType>();
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const [isEditMode, setEditMode] = useState(false);
 
@@ -26,25 +25,26 @@ const UserDetail = (props: any) => {
   useEffect(() => {
     if (!user) return;
 
+    // form에 이렇게도 줄 수 있음
+    /*
     form.setFieldsValue({
       email: user.email,
       age: user.age,
     });
+    */
   }, [user]);
 
   // 수정
   const handleFinish = (values: any) => {
     onConfirm(values);
-
     updateUser(values);
   };
 
   const updateUser = async (paychData: any) => {
     try {
       const res = await axios.patch(`/api/users/${userId}`, paychData);
+      message.info("수정되었습니다");
       router.push("/user");
-
-      console.log("update success");
     } catch (e: any) {
       console.error(`${e}`);
       message.error(`${e}`);
@@ -58,7 +58,6 @@ const UserDetail = (props: any) => {
       const res = await axios.get(`/api/users/${userId}`);
 
       const data = res.data;
-      console.log("detail 값: ", data);
 
       setUser(data);
     } catch (e) {
@@ -86,13 +85,13 @@ const UserDetail = (props: any) => {
         >
           <Descriptions bordered title="User Info" column={1}>
             <Descriptions.Item label="Email">
-              <Form.Item label="Email" name="email">
+              <Form.Item name="email">
                 <Input style={{ width: 300 }} />
               </Form.Item>
             </Descriptions.Item>
 
             <Descriptions.Item label="age">
-              <Form.Item label="age" name="age">
+              <Form.Item name="age">
                 <Input style={{ width: 300 }} />
               </Form.Item>
             </Descriptions.Item>

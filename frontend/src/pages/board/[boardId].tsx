@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const BoardDetailPage = () => {
   const router = useRouter();
 
-  return <BoardDetailPanel boardId={router.query} />;
+  return <BoardDetailPanel boardId={router.query?.boardId} />;
 };
 
 export default BoardDetailPage;

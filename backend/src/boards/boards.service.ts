@@ -17,4 +17,16 @@ export class BoardsService {
   async getBoards() {
     return this.boardModel.find();
   }
+
+  async getBoard(id: string): Promise<Board> {
+    return this.boardModel.findOne({ _id: id });
+  }
+
+  async delete(id: string) {
+    return this.boardModel.findOneAndDelete({ _id: id });
+  }
+
+  async update(id: string, board: CreateBoardDto) {
+    return this.boardModel.findByIdAndUpdate({ _id: id }, board);
+  }
 }

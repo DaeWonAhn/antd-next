@@ -5,10 +5,7 @@ import UserDetail from "@/components/pages/user/UserDetail";
 const UserDetailPage = () => {
   const router = useRouter();
 
-  const handleConfirm = (value: any) => {
-    //logic
-    console.log(value);
-  };
+  const handleConfirm = (value: any) => {};
 
   return <UserDetail userId={router.query?.userId} onConfirm={handleConfirm} />;
 };

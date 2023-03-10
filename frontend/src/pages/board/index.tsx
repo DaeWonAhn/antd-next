@@ -10,7 +10,6 @@ const BoardListPage = () => {
       try {
         const res = await axios.get("/api/boards");
         const data = res.data;
-        console.log("data: ", data);
         setData(data);
       } catch (err) {
         console.log(err);

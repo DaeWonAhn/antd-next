@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalContext } from "@/contexts/global";
-import { Avatar, Button, Col, Layout as BaseLayout, message, Modal, Row, Space, theme } from "antd";
+import { Avatar, Button, Col, Layout as BaseLayout, Menu, message, Modal, Row, Space, theme } from "antd";
 
 import Nav from "./Nav";
 import { useRouter } from "next/router";
+import Side from "./Side";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -26,7 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
   };
 
   return (
-    <div>
+    <>
       <Header>
         <Row>
           <Col flex={1}>
@@ -46,7 +47,7 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="site-layout-content">{children}</div>
       </Content>
       <Footer>An Daewon</Footer>
-    </div>
+    </>
   );
 };
 

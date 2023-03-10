@@ -5,10 +5,14 @@ import {
   Post,
   UseGuards,
   Request,
+  Param,
+  Delete,
+  Patch,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { Board } from './schemas/board.schema';
 
 @Controller('boards')
 export class BoardsController {
@@ -26,7 +30,22 @@ export class BoardsController {
   }
 
   @Get()
-  async getBoard() {
+  async getBoards() {
     return this.boardService.getBoards();
+  }
+
+  @Get(':id')
+  async getBoard(@Param('id') id: string): Promise<Board> {
+    return this.boardService.getBoard(id);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return await this.boardService.delete(id);
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() board: CreateBoardDto) {
+    return this.boardService.update(id, board);
   }
 }

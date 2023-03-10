@@ -42,7 +42,6 @@ const UserList = () => {
       title: "삭제",
       content: "선택한 항목을 삭제하시겠습니까?",
       onOk: () => {
-        // deleteUser(record._id);
         deleteUser(record.userId);
       },
     });
@@ -58,12 +57,11 @@ const UserList = () => {
   const deleteUser = async (userId: string) => {
     setLoading(true);
 
-    // const res = await axios.delete(`/api/users/${userId}`);
-
     try {
       const res = await axios.delete(`/api/users/user-id/${userId}`);
+      message.info("삭제되었습니다");
+
       fetchUserList();
-      console.log("delete success");
     } catch (e: any) {
       console.error(`${e}`);
       message.error(`${e}`);
@@ -74,7 +72,6 @@ const UserList = () => {
 
   useEffect(() => {
     fetchUserList();
-    console.log("userList", user);
   }, []);
 
   return (

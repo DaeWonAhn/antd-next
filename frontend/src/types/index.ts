@@ -7,7 +7,9 @@ export interface UserType {
 }
 
 export interface boardType {
+  _id: string;
   content: string;
   title: string;
-  _id: string;
+  regDate: string;
+  regUserEmail: string;
 }

@@ -1,6 +1,8 @@
 import React from "react";
-import { Button, Form, Input, InputNumber, Row, Col, Radio } from "antd";
+import { Button, Form, Input, InputNumber, Row, Col, Radio, message, Space } from "antd";
 import dwClient from "@/lib/client";
+import router from "next/router";
+import { useGlobalContext } from "@/contexts/global";
 
 const layout = {
   labelCol: { span: 8 },
@@ -20,6 +22,8 @@ const validateMessages = {
 };
 
 const BoardNewPanel = () => {
+  const { user } = useGlobalContext();
+
   const onFinish = (values: any) => {
     console.log("values: ", values);
 
@@ -34,8 +38,8 @@ const BoardNewPanel = () => {
     try {
       const res = await dwClient.post("/boards", postData);
       const data = res.data;
-      console.log("post success");
-      // router.push("/boards");
+      message.info("등록되었습니다.");
+      router.push("/board");
     } catch (err) {
       console.log(err);
     }
@@ -44,29 +48,13 @@ const BoardNewPanel = () => {
   const { TextArea } = Input;
 
   const [form] = Form.useForm();
-  /*
-
-
-  restful 명명
-  복수형
-
-    axios.get("url", {
-      params: {
-        ...values
-      }
-    })
-    .then(function (response) {
-      // response  
-    }).catch(function (error) {
-      // 오류발생시 실행
-    }).then(function() {
-      // 항상 실행
-    });
-  };
-  */
 
   return (
     <>
+      <div style={{ height: "130px" }}>
+        <Space direction="vertical" size={10}></Space>
+      </div>
+
       <Row justify="center">
         <Col span={10}>
           <Form
@@ -74,14 +62,18 @@ const BoardNewPanel = () => {
             form={form}
             name="nest-messages"
             onFinish={onFinish}
-            style={{ maxWidth: 600 }}
+            style={{ maxWidth: 800 }}
             validateMessages={validateMessages}
           >
             <Form.Item name={["board", "title"]} label="Title">
               <Input />
             </Form.Item>
             <Form.Item name={["board", "content"]} label="content">
-              <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
+              <TextArea rows={6} />
+            </Form.Item>
+
+            <Form.Item label="Email">
+              <Input value={user?.email} disabled />
             </Form.Item>
 
             {/* 
@@ -93,7 +85,7 @@ const BoardNewPanel = () => {
             </Form.Item>
               */}
 
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 12 }}>
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>

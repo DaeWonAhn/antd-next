@@ -7,6 +7,7 @@ import router from "next/router";
 import { boardType, UserType } from "@/types/index";
 import axios from "axios";
 import { useGlobalContext } from "@/contexts/global";
+import { title } from "process";
 
 interface Iprops {
   boards: any;
@@ -31,7 +32,15 @@ const BoardList = ({ boards }: Iprops) => {
       title: "Title",
       dataIndex: "title",
       key: "title",
-      width: 400,
+      render: (title, record) => (
+        <a onClick={() => router.push(`${router.pathname}/${record._id}`)}>{title}</a>
+      ),
+    },
+    {
+      title: "등록자",
+      dataIndex: "regUserEmail",
+      key: "regUserEmail",
+      width: 150,
     },
     {
       title: "등록일",

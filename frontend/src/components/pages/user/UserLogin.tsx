@@ -46,33 +46,6 @@ const UserLogin = () => {
     }
   };
 
-  const authCheck = async () => {
-    try {
-      const res = await dwClient.post("auth/login", userInfo);
-
-      if (res.data) {
-      } else {
-      }
-    } catch (e: any) {
-      console.error(`${e}`);
-    }
-  };
-
-  const fetchProfile = async () => {
-    try {
-      const myToken = localStorage.getItem("token");
-      console.log("myToken: ", myToken);
-
-      // const decoded = jwt.verify(myToken, "secretKey");
-      // return { user: decoded.username };
-
-      const response = await dwClient.get("/auth/profile");
-      console.log("response: ", response);
-    } catch (e: any) {
-      console.error(`${e}`);
-    }
-  };
-
   return (
     <>
       <div style={{ height: "190px" }}>
@@ -118,9 +91,6 @@ const UserLogin = () => {
             </Form.Item>
           </Form>
         </Col>
-      </Row>
-      <Row>
-        <Button onClick={fetchProfile}>확인</Button>
       </Row>
     </>
   );
