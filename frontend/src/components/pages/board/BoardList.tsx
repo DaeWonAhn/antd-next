@@ -6,12 +6,15 @@ import Router, { useRouter } from "next/router";
 import router from "next/router";
 import { boardType, UserType } from "@/types/index";
 import axios from "axios";
+import { useGlobalContext } from "@/contexts/global";
 
 interface Iprops {
   boards: any;
 }
 
 const BoardList = ({ boards }: Iprops) => {
+  const { user } = useGlobalContext();
+
   const [board, setBoardList] = useState([]);
 
   const fetchBoardList = async () => {
@@ -48,13 +51,15 @@ const BoardList = ({ boards }: Iprops) => {
       <Row justify="end">
         <Col span={4}>
           <div style={{ display: "flex" }}>
-            <Button
-              style={{ marginLeft: "auto" }}
-              className="btn-default"
-              onClick={() => router.push(`${router.pathname}/new`)}
-            >
-              추가
-            </Button>
+            {user && (
+              <Button
+                style={{ marginLeft: "auto" }}
+                className="btn-default"
+                onClick={() => router.push(`${router.pathname}/new`)}
+              >
+                추가
+              </Button>
+            )}
           </div>
         </Col>
       </Row>

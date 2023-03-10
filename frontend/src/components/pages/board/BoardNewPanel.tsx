@@ -1,8 +1,6 @@
 import React from "react";
 import { Button, Form, Input, InputNumber, Row, Col, Radio } from "antd";
-import axios from "axios";
-
-import form from "antd/es/form";
+import dwClient from "@/lib/client";
 
 const layout = {
   labelCol: { span: 8 },
@@ -34,7 +32,7 @@ const BoardNewPanel = () => {
 
   const insertBoard = async (postData: any) => {
     try {
-      const res = await axios.post("/api/boards", postData);
+      const res = await dwClient.post("/boards", postData);
       const data = res.data;
       console.log("post success");
       // router.push("/boards");

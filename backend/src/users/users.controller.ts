@@ -19,7 +19,6 @@ export class UsersController {
 
   @Get(':userId')
   async getUser(@Param('userId') userId: string): Promise<User> {
-    console.log('userId: ', userId);
     return this.usersService.getUserById(userId);
   }
 
@@ -27,17 +26,6 @@ export class UsersController {
   async getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
   }
-
-  /*
-  @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(
-      createUserDto.email,
-      createUserDto.age,
-      createUserDto.password,
-      );
-    }
-  */
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {

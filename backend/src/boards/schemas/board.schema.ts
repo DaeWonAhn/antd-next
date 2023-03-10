@@ -12,7 +12,10 @@ export class Board {
   title: string;
 
   @Prop()
-  regDate: string;
+  regUserEmail: string;
+
+  @Prop()
+  regDate: Date;
 }
 
 export const BoardSchema = SchemaFactory.createForClass(Board);

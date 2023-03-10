@@ -1,5 +1,6 @@
 export class CreateBoardDto {
   content: string;
-  title: number;
+  title: string;
+  regUserEmail: string;
   regDate: Date;
 }
