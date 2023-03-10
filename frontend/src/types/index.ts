@@ -13,3 +13,7 @@ export interface boardType {
   regDate: string;
   regUserEmail: string;
 }
+
+export interface LayoutProps {
+  children: React.ReactNode;
+}

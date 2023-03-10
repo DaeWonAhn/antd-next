@@ -8,6 +8,7 @@ import { boardType, UserType } from "@/types/index";
 import axios from "axios";
 import { useGlobalContext } from "@/contexts/global";
 import { title } from "process";
+import BoardSearchForm from "./BoardSearchForm";
 
 interface Iprops {
   boards: any;
@@ -53,9 +54,7 @@ const BoardList = ({ boards }: Iprops) => {
 
   return (
     <>
-      <Row justify="end">
-        <Col span={4}></Col>
-      </Row>
+      <BoardSearchForm />
 
       <Row justify="end">
         <Col span={4}>
