@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Form, Input, InputNumber, Row, Col, Radio } from "antd";
+import axios from "axios";
+
 import form from "antd/es/form";
 
 const layout = {
@@ -20,8 +22,30 @@ const validateMessages = {
 };
 
 const BoardNewPanel = () => {
+  const onFinish = (values: any) => {
+    console.log("values: ", values);
+
+    const postData: any = {
+      title: values.board.title,
+      content: values.board.content,
+    };
+    insertBoard(postData);
+  };
+
+  const insertBoard = async (postData: any) => {
+    try {
+      const res = await axios.post("/api/boards", postData);
+      const data = res.data;
+      console.log("post success");
+      // router.push("/boards");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const { TextArea } = Input;
+
   const [form] = Form.useForm();
-  const onFinish = (values: any) => {};
   /*
 
 
@@ -55,23 +79,21 @@ const BoardNewPanel = () => {
             style={{ maxWidth: 600 }}
             validateMessages={validateMessages}
           >
-            <Form.Item
-              name={["user", "name"]}
-              label="userId"
-              rules={[{ required: true }]}
-            >
+            <Form.Item name={["board", "title"]} label="Title">
               <Input />
             </Form.Item>
-            <Form.Item name={["user", "title"]} label="Title">
-              <Input />
+            <Form.Item name={["board", "content"]} label="content">
+              <TextArea rows={4} placeholder="maxLength is 6" maxLength={6} />
             </Form.Item>
 
+            {/* 
             <Form.Item label="Completed" name={["user", "completed"]}>
               <Radio.Group>
                 <Radio value="true"> true </Radio>
                 <Radio value="false"> false </Radio>
               </Radio.Group>
             </Form.Item>
+              */}
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
               <Button type="primary" htmlType="submit">

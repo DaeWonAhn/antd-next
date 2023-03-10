@@ -1,50 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { Table, Tooltip, Row, Col, Button, Divider } from "antd";
 import type { ColumnsType } from "antd/es/table";
-
+import moment from "moment";
 import Router, { useRouter } from "next/router";
 import router from "next/router";
-import { DataType } from "@/types/index";
+import { boardType, DataType } from "@/types/index";
+import axios from "axios";
 
 interface Iprops {
   boards: any;
 }
 
-function BoardList({ boards }: Iprops) {
-  const columns: ColumnsType<DataType> = [
+const BoardList = ({ boards }: Iprops) => {
+  const [board, setBoardList] = useState([]);
+
+  const fetchBoardList = async () => {
+    const res = await axios.get("/api/boards");
+    const data = res.data;
+    setBoardList(data);
+  };
+
+  useEffect(() => {
+    fetchBoardList();
+  }, []);
+  const columns: ColumnsType<boardType> = [
     {
-      title: "email",
-      dataIndex: "email",
-      key: "email",
-      width: 0.5,
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+      width: 400,
     },
     {
-      title: "age",
-      dataIndex: "age",
-      key: "age",
+      title: "등록일",
+      dataIndex: "regDate",
+      key: "regDate",
       width: 150,
+      render: (text) => moment(text).format("YYYY-MM-DD"),
     },
   ];
-
-  /*
-    fetch 예제
-    useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/todos")
-        .then((res) => res.json())
-        .then(setData);
-    }, []);
-    
-    */
 
   return (
     <>
       <Row justify="end">
         <Col span={4}></Col>
       </Row>
+
+      <Row justify="end">
+        <Col span={4}>
+          <div style={{ display: "flex" }}>
+            <Button
+              style={{ marginLeft: "auto" }}
+              className="btn-default"
+              onClick={() => router.push(`${router.pathname}/new`)}
+            >
+              추가
+            </Button>
+          </div>
+        </Col>
+      </Row>
+
       <Row justify="end"></Row>
-      {boards.length && <Table columns={columns} dataSource={boards} />}
+      {boards.length && <Table columns={columns} dataSource={board} rowKey="_id" />}
     </>
   );
-}
+};
 
 export default BoardList;

@@ -5,3 +5,9 @@ export interface DataType {
   id: number;
   _id: string;
 }
+
+export interface boardType {
+  content: string;
+  title: string;
+  _id: string;
+}

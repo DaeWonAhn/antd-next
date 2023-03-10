@@ -40,7 +40,7 @@ const index = () => {
   }, []);
 
   return (
-    <div>
+    <div className="site-layout-content">
       <BoardList boards={data} />
     </div>
   );
