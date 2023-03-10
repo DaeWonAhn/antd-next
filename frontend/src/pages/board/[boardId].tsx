@@ -1,12 +1,12 @@
 import React from "react";
 
 import BoardDetailPanel from "@/components/pages/board/BoardDetailPanel";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
-const DetailPage = () => {
-    const router = useRouter();
+const BoardDetailPage = () => {
+  const router = useRouter();
 
-    return <BoardDetailPanel boardId={router.query} />;
+  return <BoardDetailPanel boardId={router.query} />;
 };
 
-export default DetailPage;
+export default BoardDetailPage;

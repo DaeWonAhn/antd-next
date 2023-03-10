@@ -3,7 +3,7 @@ import router from "next/router";
 import axios from "axios";
 import type { ColumnsType } from "antd/es/table";
 import { Table, Row, Col, Button, Modal, Alert, message } from "antd";
-import { DataType } from "@/types/index";
+import { UserType } from "@/types/index";
 
 const UserList = () => {
   const [user, setUserList] = useState([]);
@@ -11,7 +11,7 @@ const UserList = () => {
 
   const [error, setError] = useState<any>(null);
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<UserType> = [
     {
       title: "email",
       dataIndex: "email",

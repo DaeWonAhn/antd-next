@@ -1,12 +1,12 @@
 import UserLogin from "@/components/pages/user/UserLogin";
 import React from "react";
 
-const login = () => {
+const UserLoginPage = () => {
   return (
     <div>
-      <UserLogin></UserLogin>
+      <UserLogin />
     </div>
   );
 };
 
-export default login;
+export default UserLoginPage;

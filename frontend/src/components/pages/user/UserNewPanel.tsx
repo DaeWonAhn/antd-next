@@ -84,12 +84,17 @@ const UserNewPanel = () => {
               <InputNumber min={1} max={100} defaultValue={23} />
             </Form.Item>
 
-            <Form.Item label="Phone">
-              <Input.Group compact>
-                <Input style={{ width: "30%" }} placeholder="010" name="phone1" />
-                <Input style={{ width: "40%" }} placeholder="1234" name="phone2" />
-                <Input style={{ width: "30%" }} placeholder="5678" name="phone3" />
-              </Input.Group>
+            <Form.Item
+              label="Phone"
+              name={["user", "phone"]}
+              rules={[
+                {
+                  pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+                  message: "전화번호 형식을 맞춰주세요",
+                },
+              ]}
+            >
+              <Input placeholder="Please input your phone number" />
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
               <Button type="primary" htmlType="submit">

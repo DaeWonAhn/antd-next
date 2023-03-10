@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 import { Button, Checkbox, Form, Input, Space, Row, Col, Modal } from "antd";
 import dwClient from "@/lib/client";
 import axios from "axios";
+import { useGlobalContext } from "@/contexts/global";
 
 let userInfo: { email: any; password: any };
 
 const UserLogin = () => {
   const router = useRouter();
+  const { setUser } = useGlobalContext();
+
   const handleFinish = async (values: any) => {
     userInfo = {
       email: values.email,
@@ -29,7 +32,9 @@ const UserLogin = () => {
 
       if (res.status === 201) {
         localStorage.setItem("token", res.data.access_token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+
+        setUser(res.data.user);
+
         router.push("/");
       }
     } catch (e: any) {
@@ -40,29 +45,6 @@ const UserLogin = () => {
       console.error(`${e}`);
     }
   };
-
-  /*
-  const loginUser = async () => {
-    try {
-      const res = await dwClient.post("auth/login", userInfo);
-      
-      if (res.data) {
-        console.log("o");
-        console.log("res.data.access_token: ", res.data.access_token);
-        localStorage.setItem("token", res.data.access_token);
-        router.push("/");
-      } else {
-        Modal.confirm({
-          title: "삭제",
-          content: "선택한 항목을 삭제하시겠습니까?",
-        });
-        console.log("x");
-      }
-    } catch (e: any) {
-      console.error(`${e}`);
-    }
-  };
-  */
 
   const authCheck = async () => {
     try {

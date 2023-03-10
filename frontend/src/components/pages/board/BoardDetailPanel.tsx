@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 
 import { Descriptions } from "antd";
 
-import { DataType } from "@/types/index";
+import { UserType } from "@/types/index";
 import axios from "axios";
 
 interface IFoodData {
-    name: string;
-    price: number;
-    content: string;
+  name: string;
+  price: number;
+  content: string;
 }
 
 const BaordDetailPanel = (probs: any) => {
-    const { boardId } = probs;
-    console.log("boardId: ", boardId);
+  const { boardId } = probs;
+  console.log("boardId: ", boardId);
 
-    const [data, setData] = useState<DataType>();
-    useEffect(() => {
-        /*
+  const [data, setData] = useState<UserType>();
+  useEffect(() => {
+    /*
 
         fetch 사용 
 
@@ -29,17 +29,17 @@ const BaordDetailPanel = (probs: any) => {
         fetchBoard();
         */
 
-        const nextTest = async () => {
-            try {
-                const res = await axios.get("/api/users");
-                const data = res.data;
-                console.log(data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
+    const nextTest = async () => {
+      try {
+        const res = await axios.get("/api/users");
+        const data = res.data;
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-        /*
+    /*
        post;
        const postData = {
            email: "sdsd2112@naver.com",
@@ -57,22 +57,22 @@ const BaordDetailPanel = (probs: any) => {
             }
         };
         */
-        nextTest();
-    }, [boardId]);
+    nextTest();
+  }, [boardId]);
 
-    // Descriptions
+  // Descriptions
 
-    return (
-        <>
-            {/* 
+  return (
+    <>
+      {/* 
             <Descriptions title="User Info" layout="vertical">
                 <Descriptions.Item label="userId">{data?.age}</Descriptions.Item>
                 <Descriptions.Item label="Title">{data?.em}</Descriptions.Item>
                 <Descriptions.Item label="Id">{data?.id}</Descriptions.Item>
             </Descriptions>
             */}
-        </>
-    );
+    </>
+  );
 };
 
 export default BaordDetailPanel;

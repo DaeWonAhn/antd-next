@@ -1,8 +1,8 @@
-import { DataType } from "@/types";
+import { UserType } from "@/types";
 import React, { useEffect, useState } from "react";
 
-const index = () => {
-  const [user, setUser] = useState<DataType>();
+const Home = () => {
+  const [user, setUser] = useState<UserType>();
 
   useEffect(() => {
     let user = localStorage.getItem("user") || "{}";
@@ -11,6 +11,7 @@ const index = () => {
 
     setUser(JSON.parse(user));
   }, []);
+
   return (
     <div>
       <h1>home</h1>
@@ -19,4 +20,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Home;

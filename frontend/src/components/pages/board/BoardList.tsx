@@ -4,7 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import moment from "moment";
 import Router, { useRouter } from "next/router";
 import router from "next/router";
-import { boardType, DataType } from "@/types/index";
+import { boardType, UserType } from "@/types/index";
 import axios from "axios";
 
 interface Iprops {

@@ -1,8 +1,8 @@
 import React from "react";
 import BoardNewPanel from "@/components/pages/board/BoardNewPanel";
 
-const NewPage: React.FC = () => {
+const NewBoardPage: React.FC = () => {
   return <BoardNewPanel />;
 };
 
-export default NewPage;
+export default NewBoardPage;

@@ -3,54 +3,43 @@ import { Breadcrumb, Layout, Menu, theme, MenuProps } from "antd";
 import Link from "next/link";
 import Item from "antd/es/list/Item";
 import { MenuItemType, SubMenuType, MenuItemGroupType, MenuDividerType } from "antd/es/menu/hooks/useItems";
+import { useGlobalContext } from "@/contexts/global";
 
 const menuItems: MenuProps["items"] = [
   {
     label: <Link href="/">홈</Link>,
     key: "home",
   },
-  {
-    label: <Link href="/user/login">로그인</Link>,
-    key: "a1",
-  },
-  {
-    label: <Link href="/user/logout">로그아웃</Link>,
-    key: "a2",
-  },
+
   {
     label: <Link href="/board/">게시판</Link>,
-    key: "a3",
+    key: "board",
   },
   {
-    label: <Link href="/user">USER</Link>,
-    key: "a4",
+    label: <Link href="/user">사용자</Link>,
+    key: "user`",
   },
 ];
 
 const Nav = () => {
-  const [current, setCurrent] = useState("home");
-  const [token, setToken] = useState<any>("");
+  const { user } = useGlobalContext();
+
   const [menu, setMenu] = useState<any>("");
+  const [current, setCurrent] = useState("home");
 
   const onMenu: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);
   };
 
-  let removeNav: any;
-  let removeNavItm: any;
   useEffect(() => {
-    localStorage.getItem("user");
-    let user = localStorage.getItem("user") || "{}";
-
-    if (user !== "{}") {
-      removeNav = menuItems.find((item) => item?.key === "a1");
-      removeNavItm = removeNav?.key;
-    } else {
-      removeNav = menuItems.find((item) => item?.key === "a2");
-      removeNavItm = removeNav?.key;
-    }
-    setMenu(menuItems.filter((item) => item?.key !== removeNavItm));
-  }, []);
+    setMenu([
+      ...menuItems,
+      !user && {
+        label: <Link href="/user/login">로그인</Link>,
+        key: "login",
+      },
+    ]);
+  }, [user]);
 
   return (
     <>

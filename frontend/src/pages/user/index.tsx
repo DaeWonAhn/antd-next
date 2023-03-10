@@ -3,14 +3,8 @@ import React from "react";
 import UserList from "@/components/pages/user/UserList";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 
-const index = () => {
-  return (
-    <>
-      <div className="site-layout-content">
-        <UserList></UserList>
-      </div>
-    </>
-  );
+const UserListPage = () => {
+  return <UserList />;
 };
 
-export default index;
+export default UserListPage;

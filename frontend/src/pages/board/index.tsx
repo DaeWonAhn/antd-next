@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BoardList from "@/components/pages/board/BoardList";
 import axios from "axios";
 
-const index = () => {
+const BoardListPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -16,34 +16,11 @@ const index = () => {
         console.log(err);
       }
     };
-    getBoard();
 
-    /*
-        const postData = {
-            email: "sdsd2112@naver.com",
-            age: 51,
-            title: "title01",
-        };
-        
-        const nextTest = async () => {
-            try {
-                const res = await axios.post("/api/boards", postData);
-                const data = res.data;
-                console.log(data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        
-        nextTest();
-        */
+    getBoard();
   }, []);
 
-  return (
-    <div className="site-layout-content">
-      <BoardList boards={data} />
-    </div>
-  );
+  return <BoardList boards={data} />;
 };
 
-export default index;
+export default BoardListPage;

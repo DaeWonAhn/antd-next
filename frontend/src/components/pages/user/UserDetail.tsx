@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 import { Descriptions, Button, Input, Form, Alert, Space, message } from "antd";
-import { DataType } from "@/types";
+import { UserType } from "@/types";
 
 const UserDetail = (props: any) => {
   const { userId, onConfirm } = props;
@@ -12,7 +12,7 @@ const UserDetail = (props: any) => {
   const [form] = Form.useForm();
   const router = useRouter();
 
-  const [user, setUser] = useState<DataType>();
+  const [user, setUser] = useState<UserType>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const [isEditMode, setEditMode] = useState(false);
