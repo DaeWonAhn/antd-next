@@ -7,6 +7,7 @@ import { LayoutProps } from "@/types";
 
 import Nav from "./Nav";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
+import Link from "next/link";
 
 const { Footer, Header, Content, Sider } = Layout;
 
@@ -27,19 +28,60 @@ const LayoutForm = ({ children }: LayoutProps) => {
   const items2: MenuProps["items"] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     (icon, index) => {
       const key = String(index + 1);
+      const navItems: any = ["게시판", "USER", "관리자"];
+
+      let children: string | null | any = null;
+
+      const navChiles1: any = [{ title: "게시판", url: "/board" }];
+      const navChiles2: any = [{ title: "사용자 list", url: "/user" }];
+      const navChiles3: any = [{ title: "권한관리", url: "" }];
+
+      children = index === 0 ? navChiles1 : index === 1 ? navChiles2 : navChiles3;
+
+      let childrenItmTitle: string | null = null;
+      let childrenItmUrl: string | null = null;
 
       return {
+        // start
+
+        /*
         key: `sub${key}`,
         icon: React.createElement(icon),
         label: `subnav ${key}`,
+        */
+        key: `sub${key}`,
+        icon: React.createElement(icon),
 
+        label: `${navItems[index]}`,
+
+        children: children.map((items: any, index: string | number) => {
+          if (index == 0) {
+            const { title, url } = items;
+            childrenItmTitle = title;
+            childrenItmUrl = url;
+          }
+          if (index == 1) {
+            const { title } = items;
+            childrenItmTitle = title;
+          }
+
+          return {
+            key: childrenItmTitle,
+            label: <Link href={childrenItmUrl}>{childrenItmTitle}</Link>,
+          };
+        }),
+        /*
         children: new Array(4).fill(null).map((_, j) => {
           const subKey = index * 4 + j + 1;
+          console.log("subKey: ", subKey);
           return {
             key: subKey,
             label: `option${subKey}`,
           };
         }),
+        */
+
+        // end
       };
     }
   );
@@ -54,8 +96,17 @@ const LayoutForm = ({ children }: LayoutProps) => {
           <Col>
             {user && (
               <Space>
-                <Avatar>{user.email}</Avatar>
+                <Avatar size="large">
+                  <LaptopOutlined /> {user.email}
+                </Avatar>
+
                 <Button onClick={handleLogoutButtonClick}>로그아웃</Button>
+              </Space>
+            )}
+
+            {!user && (
+              <Space>
+                <Button onClick={() => router.push("/user/login")}>로그인</Button>
               </Space>
             )}
           </Col>
@@ -80,7 +131,7 @@ const LayoutForm = ({ children }: LayoutProps) => {
         </Layout>
       </Layout>
 
-      <Footer>An Daewon</Footer>
+      {/* <Footer>An Daewon</Footer> */}
     </Layout>
   );
 };

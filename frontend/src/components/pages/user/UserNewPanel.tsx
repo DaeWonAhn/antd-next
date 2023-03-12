@@ -31,11 +31,13 @@ const UserNewPanel = () => {
     const userEmail = values.user.email;
     const userAge = values.user.age;
     const userPass = values.user.password;
+    const userPhone = values.user.phone;
 
     const postData = {
       email: userEmail,
       age: userAge,
       password: userPass,
+      phone: userPhone,
     };
 
     insertUser(postData);
@@ -58,52 +60,51 @@ const UserNewPanel = () => {
         <Space direction="vertical" size={10}></Space>
       </div>
 
-      <Row justify="center">
-        <Col span={9}>
-          <Form
-            {...layout}
-            form={form}
-            name="nest-messages"
-            onFinish={onFinish}
-            style={{ maxWidth: 500 }}
-            validateMessages={validateMessages}
-          >
-            <Form.Item name={["user", "email"]} label="Email" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
+      <Form
+        {...layout}
+        form={form}
+        name="nest-messages"
+        onFinish={onFinish}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        style={{ maxWidth: 800 }}
+        validateMessages={validateMessages}
+      >
+        <Form.Item name={["user", "email"]} label="Email" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
 
-            <Form.Item
-              label="Password"
-              name={["user", "password"]}
-              rules={[{ required: true, message: "Please input your password!" }]}
-            >
-              <Input.Password />
-            </Form.Item>
+        <Form.Item
+          label="Password"
+          name={["user", "password"]}
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-            <Form.Item name={["user", "age"]} label="Age">
-              <InputNumber min={1} max={100} defaultValue={23} />
-            </Form.Item>
+        <Form.Item name={["user", "age"]} label="Age">
+          <InputNumber min={1} max={100} defaultValue={23} />
+        </Form.Item>
 
-            <Form.Item
-              label="Phone"
-              name={["user", "phone"]}
-              rules={[
-                {
-                  pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-                  message: "전화번호 형식을 맞춰주세요",
-                },
-              ]}
-            >
-              <Input placeholder="Please input your phone number" />
-            </Form.Item>
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
-      </Row>
+        <Form.Item
+          label="Phone"
+          name={["user", "phone"]}
+          rules={[
+            {
+              pattern: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+              message: "전화번호 형식을 맞춰주세요",
+            },
+          ]}
+        >
+          <Input placeholder="Please input your phone number" />
+        </Form.Item>
+        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </>
   );
 };

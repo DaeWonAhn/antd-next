@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Tooltip, Row, Col, Button, Divider } from "antd";
+import { Table, Tooltip, Row, Col, Button, Divider, Rate } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import moment from "moment";
 import Router, { useRouter } from "next/router";
@@ -36,6 +36,11 @@ const BoardList = ({ boards }: Iprops) => {
       render: (title, record) => (
         <a onClick={() => router.push(`${router.pathname}/${record._id}`)}>{title}</a>
       ),
+    },
+    {
+      title: "별점",
+      width: 200,
+      render: (title, record) => <Rate allowHalf defaultValue={2.5} />,
     },
     {
       title: "등록자",

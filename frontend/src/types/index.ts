@@ -3,7 +3,7 @@ export interface UserType {
   email: string;
   age: number;
   userId: number;
-  id: number;
+  phone: string;
 }
 
 export interface boardType {

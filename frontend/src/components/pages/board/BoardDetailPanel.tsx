@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Alert, Button, Descriptions, Form, Input, message, Modal } from "antd";
+import { Alert, Button, Descriptions, Form, Input, message, Modal, Rate } from "antd";
 
 import { boardType } from "@/types/index";
 import axios from "axios";
@@ -124,7 +124,12 @@ const BaordDetailPanel = (probs: any) => {
             </Descriptions.Item>
             <Descriptions.Item label="EMAIL">{board?.regUserEmail}</Descriptions.Item>
             <Descriptions.Item label="contnet">
-              <TextArea rows={6} style={{ width: 800 }} value={board?.content} />
+              <TextArea rows={6} value={board?.content} />
+            </Descriptions.Item>
+          </Descriptions>
+          <Descriptions title="별점" layout="vertical">
+            <Descriptions.Item>
+              <Rate allowHalf defaultValue={2.5} />
             </Descriptions.Item>
           </Descriptions>
           {isUser && (

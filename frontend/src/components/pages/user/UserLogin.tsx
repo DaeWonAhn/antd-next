@@ -52,46 +52,43 @@ const UserLogin = () => {
         <Space direction="vertical" size={10}></Space>
       </div>
 
-      <Row justify="center">
-        <Col span={10}>
-          <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            onFinish={handleFinish}
-            onFinishFailed={handleFinishFailed}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="email"
-              name="email"
-              rules={[{ required: true, message: "Please input your username!" }]}
-            >
-              <Input />
-            </Form.Item>
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        layout="horizontal"
+        initialValues={{ remember: true }}
+        onFinish={handleFinish}
+        onFinishFailed={handleFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="email"
+          name="email"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[{ required: true, message: "Please input your password!" }]}
-            >
-              <Input.Password />
-            </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-            <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
-      </Row>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </>
   );
 };

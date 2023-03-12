@@ -80,19 +80,25 @@ const UserDetail = (props: any) => {
           initialValues={{
             email: user.email,
             age: user.age,
+            phone: user.phone,
           }}
           onFinish={handleFinish}
         >
-          <Descriptions bordered title="User Info" column={1}>
+          <Descriptions bordered title="User Info" column={1} size="small" style={{ width: 550 }}>
             <Descriptions.Item label="Email">
               <Form.Item name="email">
-                <Input style={{ width: 300 }} />
+                <Input disabled />
               </Form.Item>
             </Descriptions.Item>
 
             <Descriptions.Item label="age">
               <Form.Item name="age">
-                <Input style={{ width: 300 }} />
+                <Input />
+              </Form.Item>
+            </Descriptions.Item>
+            <Descriptions.Item label="phone">
+              <Form.Item name="phone">
+                <Input />
               </Form.Item>
             </Descriptions.Item>
             <Descriptions.Item label="수정">
@@ -104,9 +110,10 @@ const UserDetail = (props: any) => {
         </Form>
       ) : (
         <>
-          <Descriptions bordered title="User Info" column={1}>
+          <Descriptions bordered title="User Info" column={1} size="small" style={{ width: 550 }}>
             <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
             <Descriptions.Item label="age">{user.age}</Descriptions.Item>
+            <Descriptions.Item label="phone">{user.phone}</Descriptions.Item>
             <Descriptions.Item label="수정">
               <Button
                 className="btn-default"

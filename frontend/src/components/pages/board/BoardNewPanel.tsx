@@ -55,28 +55,30 @@ const BoardNewPanel = () => {
         <Space direction="vertical" size={10}></Space>
       </div>
 
-      <Row justify="center">
-        <Col span={10}>
-          <Form
-            {...layout}
-            form={form}
-            name="nest-messages"
-            onFinish={onFinish}
-            style={{ maxWidth: 800 }}
-            validateMessages={validateMessages}
-          >
-            <Form.Item name={["board", "title"]} label="Title">
-              <Input />
-            </Form.Item>
-            <Form.Item name={["board", "content"]} label="content">
-              <TextArea rows={6} />
-            </Form.Item>
+      {/* <Row justify="center"> */}
+      <Form
+        {...layout}
+        form={form}
+        name="nest-messages"
+        onFinish={onFinish}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        style={{ maxWidth: 800 }}
+        validateMessages={validateMessages}
+      >
+        <Form.Item name={["board", "title"]} label="Title">
+          <Input />
+        </Form.Item>
+        <Form.Item name={["board", "content"]} label="content">
+          <TextArea />
+        </Form.Item>
 
-            <Form.Item label="Email">
-              <Input value={user?.email} disabled />
-            </Form.Item>
+        <Form.Item label="Email">
+          <Input value={user?.email} disabled />
+        </Form.Item>
 
-            {/* 
+        {/* 
             <Form.Item label="Completed" name={["user", "completed"]}>
               <Radio.Group>
                 <Radio value="true"> true </Radio>
@@ -85,14 +87,12 @@ const BoardNewPanel = () => {
             </Form.Item>
               */}
 
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 12 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
-      </Row>
+        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 12 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </>
   );
 };

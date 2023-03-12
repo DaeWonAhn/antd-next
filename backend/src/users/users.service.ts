@@ -20,8 +20,8 @@ export class UsersService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
-  async getUserById(userId: string): Promise<User> {
-    return this.usersRepository.findOne({ userId });
+  async getUserById(id: string): Promise<User> {
+    return this.usersRepository.findOne({ _id: id });
   }
 
   async loginUser(email: string): Promise<User> {
@@ -32,34 +32,37 @@ export class UsersService {
     return this.usersRepository.find({ order: { price: 'desc' } });
   }
 
+  /*
+  
   async createUser(
     email: string,
     age: number,
     password: string,
-  ): Promise<User> {
-    return this.usersRepository.create({
-      userId: uuidv4(),
-      email,
-      age,
-      password,
-      favoriteFoods: [],
-    });
-  }
+    ): Promise<User> {
+      return this.usersRepository.create({
+        userId: uuidv4(),
+        email,
+        age,
+        password,
+        phone,
+        favoriteFoods: [],
+      });
+    }
+    */
 
   async save(user: CreateUserDto): Promise<User> {
     // await this.transformPassword(createUserDto);
     await this.transformPassword(user);
     return this.usersRepository.create({
-      userId: uuidv4(),
       email: user.email,
       age: user.age,
-      favoriteFoods: [],
+      phone: user.phone,
       password: user.password,
     });
   }
 
-  async updateUser(userId: string, userUpdates: UpdateUserDto): Promise<User> {
-    return this.usersRepository.findOneAndUpdate({ userId }, userUpdates);
+  async updateUser(id: string, userUpdates: UpdateUserDto): Promise<User> {
+    return this.usersRepository.findOneAndUpdate({ _id: id }, userUpdates);
   }
 
   async deleteUser(id: string): Promise<User> {

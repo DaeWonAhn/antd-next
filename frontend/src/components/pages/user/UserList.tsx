@@ -16,22 +16,15 @@ const UserList = () => {
       title: "email",
       dataIndex: "email",
       key: "email",
-      width: 0.5,
       render: (email, record) => (
-        <a onClick={() => router.push(`${router.pathname}/${record.userId}`)}>{email}</a>
+        <a onClick={() => router.push(`${router.pathname}/${record._id}`)}>{email}</a>
       ),
     },
     {
-      title: "age",
-      dataIndex: "age",
-      key: "age",
-      width: 150,
-    },
-    {
-      title: "Action",
+      title: "삭제",
       dataIndex: "",
       key: "x",
-      width: 150,
+      width: 100,
 
       render: (text, record) => <a onClick={() => handleRowClick(record)}>Delete</a>,
     },

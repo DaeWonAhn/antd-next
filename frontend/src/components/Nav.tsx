@@ -5,12 +5,13 @@ import Item from "antd/es/list/Item";
 import { MenuItemType, SubMenuType, MenuItemGroupType, MenuDividerType } from "antd/es/menu/hooks/useItems";
 import { useGlobalContext } from "@/contexts/global";
 
+/*
 const menuItems: MenuProps["items"] = [
   {
     label: <Link href="/">홈</Link>,
     key: "home",
   },
-
+  
   {
     label: <Link href="/board/">게시판</Link>,
     key: "board",
@@ -18,6 +19,30 @@ const menuItems: MenuProps["items"] = [
   {
     label: <Link href="/user">사용자</Link>,
     key: "user`",
+  },
+];
+const menuItems: MenuProps["items"] = [
+  {
+    label: <Link href="/">홈</Link>,
+    key: "home",
+  },
+  
+  {
+    label: <Link href="/board/">게시판</Link>,
+    key: "board",
+  },
+  {
+    label: <Link href="/user">사용자</Link>,
+    key: "user`",
+  },
+];
+
+*/
+
+const menuItems: MenuProps["items"] = [
+  {
+    label: <Link href="/">Main</Link>,
+    key: "home",
   },
 ];
 
@@ -31,6 +56,7 @@ const Nav = () => {
     setCurrent(e.key);
   };
 
+  /*
   useEffect(() => {
     setMenu([
       ...menuItems,
@@ -40,10 +66,11 @@ const Nav = () => {
       },
     ]);
   }, [user]);
-
+  
+  */
   return (
     <>
-      <Menu onClick={onMenu} selectedKeys={[current]} items={menu} mode="horizontal" theme="dark" />
+      <Menu onClick={onMenu} selectedKeys={[current]} items={menuItems} mode="horizontal" theme="dark" />
     </>
   );
 };
